@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Modula Tray Configurator</title>
+    <link rel="stylesheet" type="text/css" href="lib/jqueryui/jquery-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="lib/noUiSlider/jquery.nouislider.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" media="screen">
+    <!-- only online
+     <link href='http://fonts.googleapis.com/css?family=Dosis:300,400,600' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+
+</head>
+
+<body>
+    <!-- Inizio wrapper -->
+    <div id="wrapper">
+
+        <!-- Contenuto pagina -->
+        <div id="page-content-wrapper">
+            <h2>
+                <input type="text" id="setupName" value="Setup1">
+                <span class="glyphicon glyphicon-floppy-disk inactive"></span><br />
+                <label for="setupName">Name</label>
+            </h2>
+            <ul class="viewSelect">
+                <li class="active" target="view-2d"> 2D </li>
+                <li target="view-3d"> 3D </li>
+            </ul>
+
+            
+            <section id="view-2d" class="viewPanel">
+                <div class="traySection">
+                
+                </div>
+                <div id="testDividers"></div>
+                <!-- Tabella modula -->
+                <div class="modula_container">
+                <div class="sizeTrace w-size"><div id="displayWidth"></div></div>
+                <div class="sizeTrace h-size"><div id="displayLength"></div></div>
+                <!-- Commands -->
+                <div class="commands">
+                    <label>Partizioni</label>
+                    <button class="addRow btn btn-default">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></span>
+                        <!-- <span class="appendRow"></span> -->
+                    </button>
+                     <button class="enableDrag btn btn-default disabled">
+                        <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="sortable">
+                    <div class="h-size"></div>
+                    <table class="MatrixTable" size="100">
+                        <tbody>
+                            <tr>
+                                <div class="actions">
+                                    <button type="button" class="deleteRow btn btn-default disabled" aria-label="Remove">
+                                        <!-- <span class="delRow"></span> -->
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </button>
+                                    <button class="equalSize btn btn-default enabled">
+                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                    </button>
+                                </div>
+ 
+
+                                <td class="" size="100">
+                                    <button type="button" class="addColumn btn btn-default" aria-label="Add">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                       <!-- <span class="addCol"></span> -->
+                                    </button>
+                                    <button type="button" class="deleteColumn btn btn-default" aria-label="Delete">
+                                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                        <!-- <span class="delCol"></span> -->
+                                    </button>
+                                    <div class="w-size"></div>
+                                </td>                       
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </section>
+            <section id="view-3d" class="viewPanel">
+                <canvas width="800" height="500" id="seen-canvas"></canvas>
+            </section>
+            
+        </div>
+        
+        
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <button id="menu-configuration" class="btn btn-default btn-lg menu-toggle">
+                <span class="glyphicon glyphicon-arrow-right"></span>
+            </button>
+            <button id="menu-inventory" class="btn btn-default btn-lg menu-toggle">
+                <span class="glyphicon glyphicon-option-horizontal"></span>
+            </button>
+            <div id="sidebar-container" class="sidebar-sections">
+
+            <section id="configuration" class="sidebar-panel">
+                <h3>Configurazione</h3>
+                <!-- <div id="slider"></div> -->
+                <div id="identification-section" class="section">
+                    <span class="pill">
+                       
+                    </span>
+                </div>
+                <div id="layout-section" class="section accordion">
+                    <h4>Layout<span id="activeLayout" class="quick-details">Custom</span></h4>
+                    <div class="innerSection">
+                        <ul class="layoutSelector">
+                            <li class="omo">
+                                <div class="icon"></div>
+                                <label for="">Omogeneo</label>
+                            </li>
+                            <li class="custom active">
+                                <div class="icon"></div>
+                                <label for="">Custom</label>
+                            </li>
+                        </ul>
+                        <div class="tray-size">     <!-- per ora replichiamo gli slider per larghezza e profondità -->
+                            <div class="size sizeW">
+                                <span class="width">
+                                    <label for="">Larghezza</label>
+                                    <input type="text" id="trayWidth" class="focusEvident numbers" readonly value="" />
+                                    <span class="units">mm</span>
+                                    <div id="slider-width"></div>
+                                </span>
+                            </div>
+                            <div class="size sizeL">
+                                <span class="length">
+                                    <label for="">Lunghezza</label>
+                                    <input type="text" id="trayLength" class="focusEvident numbers" readonly value="" />
+                                    <span class="units">mm</span>
+                                    <div id="slider-length"></div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tray-section" class="section accordion">
+                    <h4>Cassetto
+                        <span id="activeSizes" class="quick-details">
+                            <span id="wLabel">654</span>mm x <span id="lLabel">400</span>mm x <span id="hLabel">45</span>mm
+                        </span>
+                    </h4>
+                    <div class="innerSection">
+                        <br />
+                            <div class="size">
+                                <div class="trayPlan-icon"></div>
+                                <div class="trayAsson-icon"></div>
+                            </div>
+                        <div class="tray-size">
+                            <div class="size sizeH">
+                                <span class="height">
+                                    <label for="">Altezza</label>
+                                    <input type="text" id="trayHeight" class="focusEvident numbers" readonly value="" />
+                                    <span class="units">mm</span>
+                                    <div id="slider-height"></div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="partition-section" class="section">
+                    <h4>Partizioni</h4>
+                    <div class="partition-icon"></div>
+                    <ul class="legend">
+                        <li class="headers">Misure<span class="rightCol">Q.tà</span></li>
+                        <li><span class="width">654</span> mm<span class="rightCol">0</span></li>
+                    </ul>
+                </div>
+                <div id="divisor-section" class="section">
+                    <h4>Divisori</h4>
+                    <div class="divisor-icon"></div>
+                    <ul class="legend">
+                        <li class="headers">Misure<span class="rightCol">Q.tà</span></li>
+                        <li class="size100">100 mm<span class="rightCol">0</span></li>
+                        <li  class="size140">140 mm<span class="rightCol">0</span></li>
+                        <li  class="size180">180 mm<span class="rightCol">0</span></li>
+                        <li  class="size220">220 mm<span class="rightCol">0</span></li>
+                        <li  class="size260">260 mm<span class="rightCol">0</span></li>
+                        <li  class="size300">300 mm<span class="rightCol">0</span></li>
+                    </ul>
+                 </div>
+             </section>
+             <!-- /configurazione -->
+             <section id="inventory" class="sidebar-panel">
+                <h3>Campionario</h3>
+                <div id="inventory-partition" class="section">
+                    <h4>Partizioni</h4>
+                    <div class="partition-icon"></div>
+                    <ul class="legend">
+                        <li class="headers">Misure<span class="rightCol">Q.tà</span></li>
+                        <li><span class="width">654</span> mm<span class="rightCol">0</span></li>
+                    </ul>
+                </div>
+                <div id="inventory-divisor" class="section">
+                    <h4>Divisiori</h4>
+                    <div class="divisor-icon"></div>
+                    <ul class="legend">
+                        <li class="headers">Misure<span class="rightCol">Q.tà</span></li>
+                        <li class="size100">100 mm<span class="rightCol">0</span></li>
+                        <li  class="size140">140 mm<span class="rightCol">0</span></li>
+                        <li  class="size180">180 mm<span class="rightCol">0</span></li>
+                        <li  class="size220">220 mm<span class="rightCol">0</span></li>
+                        <li  class="size260">260 mm<span class="rightCol">0</span></li>
+                        <li  class="size300">300 mm<span class="rightCol">0</span></li>
+                    </ul>
+                 </div>
+            </section>
+            <!-- /inventory -->
+            </div>
+        </div>
+
+    </div>
+    <!-- Fine wrapper -->
+    <div style="display:none">
+        <div id="newRow">
+            <div class="sortable">
+                <div class="h-size">100</div>
+                <table class="MatrixTable" cellspacing="0" size="100" cellpadding="0">
+                    <tbody> 
+                    <tr> 
+                        <div class="actions">
+                            <button type="button" class="deleteRow btn btn-default" aria-label="Remove">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                <!-- <span class="delRow"></span> -->
+                            </button>
+                            <button class="equalSize btn btn-default enabled">
+                                <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <td class="" size="100"> 
+                            <button type="button" class="addColumn btn btn-default" aria-label="Add">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <!-- <span class="addCol"></span> -->
+                            </button> 
+                            <button type="button" class="deleteColumn btn btn-default" aria-label="Delete">
+                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                <!-- <span class="delCol"></span> -->
+                            </button> 
+                            <div class="w-size"></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <table>
+            <tr id="newCol">
+            <td class="newCol" size="100">
+                <button type="button" class="addColumn btn btn-default" aria-label="Add"> 
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <!-- <span class="addCol"></span> -->
+                </button>
+                <button type="button" class="deleteColumn btn btn-default" aria-label="Add">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    <!-- <span class="delCol"></span> -->
+                </button> 
+                <div class="w-size"></div>
+            </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Load scripts -->
+    <script src="lib/jquery/jquery-1.11.2.min.js"></script>
+    <script src="lib/jqueryui/jquery-ui.min.js"></script>
+    <script src="lib/jqueryui-touch/jquery.ui.touch-punch.min.js"></script>
+    <script src="lib/noUiSlider/jquery.nouislider.all.min.js"></script>
+    <script src="lib/colResizable/colResizable-1.5.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.9.2/coffee-script.js"></script>-->
+    <script src="js/seen.min.js"></script>
+    <script src="lib/seen/3dDraw.js"></script>
+    <script src="js/modula.js"></script>
+    
+</body>
